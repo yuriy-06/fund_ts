@@ -1,0 +1,6 @@
+{
+	"author"	: "Yurij Vdovik",
+	"name"		: "Outflanking_ts",
+	"version"	: "0.0.1",
+	"devDependencies" : {lodash.times}
+}
