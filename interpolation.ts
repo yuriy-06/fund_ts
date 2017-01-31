@@ -1,5 +1,5 @@
 export class Interpolation {
-    index(m:number[], p:number):number{
+    static index(m:number[], p:number):number{
         let count = 0;
         for(var item of m){
             if (item >= p){return count - 1} else {count +=  1;};
@@ -8,7 +8,7 @@ export class Interpolation {
         if ((count - 1) > m.length) {console.log(`in Interpolation.index - выход за пределы индекса, count - 1 = ${count - 1} > m.size = ${m.length}`);};
         return count - 1; //# на случай если p за пределами индекса
     }
-    int1d(m:number[], x:number):number{
+    static int1d(m:number[], x:number):number{
 		let x1 = m[0];
 		let y1 = m[1];
 		let x2 = m[2];
@@ -17,7 +17,7 @@ export class Interpolation {
 		let z = tan*(x - x1) + y1;
         return z;
     }
-    int2d(main_m:number[][], xm:number[], ym:number[], x:number, y:number):number{
+    static int2d(main_m:number[][], xm:number[], ym:number[], x:number, y:number):number{
 		let x1index = this.index(xm, x);
 		let x2index = x1index + 1;
 		let y1index = this.index(ym,y);

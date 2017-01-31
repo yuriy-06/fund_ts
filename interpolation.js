@@ -1,6 +1,6 @@
 "use strict";
 class Interpolation {
-    index(m, p) {
+    static index(m, p) {
         let count = 0;
         for (var item of m) {
             if (item >= p) {
@@ -17,7 +17,7 @@ class Interpolation {
         ;
         return count - 1; //# на случай если p за пределами индекса
     }
-    int1d(m, x) {
+    static int1d(m, x) {
         let x1 = m[0];
         let y1 = m[1];
         let x2 = m[2];
@@ -26,7 +26,7 @@ class Interpolation {
         let z = tan * (x - x1) + y1;
         return z;
     }
-    int2d(main_m, xm, ym, x, y) {
+    static int2d(main_m, xm, ym, x, y) {
         let x1index = this.index(xm, x);
         let x2index = x1index + 1;
         let y1index = this.index(ym, y);

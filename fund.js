@@ -58,8 +58,7 @@ class Ige {
             console.log("warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})");
         }
         ;
-        var interPol = new interpolation_1.Interpolation;
-        let a = interPol.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
+        let a = interpolation_1.Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
         this.σ_zpi = a * p;
         this.σ_zpi4 = this.σ_zpi / 4;
         return this.σ_zpi;
@@ -71,8 +70,7 @@ class Ige {
             console.log("warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})");
         }
         ;
-        var interPol = new interpolation_1.Interpolation;
-        let a = interPol.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
+        let a = interpolation_1.Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
         this.σ_zgi = a * zg0;
         return this.σ_zgi;
     }
@@ -252,18 +250,13 @@ class SqBase {
         ;
     }
     osadka_add(obj_base_add) {
-        let fund_pull = [];
-        let dx = Math.abs(obj_base_add.x - this.x);
-        let dy = Math.abs(obj_base_add.y - this.y);
+        let fund_pull = [], dx = Math.abs(obj_base_add.x - this.x), dy = Math.abs(obj_base_add.y - this.y);
         // определим условные координаты влияющего фундамента относительно 0 (на который влияют)
         //
         //  p4   p3
         //
         //  p1   p2
-        let p1 = new Point({ x: dx - (obj_base_add.l / 2), y: dy - (obj_base_add.b / 2) });
-        let p2 = new Point({ x: dx + (obj_base_add.l / 2), y: dy - (obj_base_add.b / 2) });
-        let p3 = new Point({ x: dx + (obj_base_add.l / 2), y: dy + (obj_base_add.b / 2) });
-        let p4 = new Point({ x: dx - (obj_base_add.l / 2), y: dy + (obj_base_add.b / 2) });
+        let p1 = new Point({ x: dx - (obj_base_add.l / 2), y: dy - (obj_base_add.b / 2) }), p2 = new Point({ x: dx + (obj_base_add.l / 2), y: dy - (obj_base_add.b / 2) }), p3 = new Point({ x: dx + (obj_base_add.l / 2), y: dy + (obj_base_add.b / 2) }), p4 = new Point({ x: dx - (obj_base_add.l / 2), y: dy + (obj_base_add.b / 2) });
         obj_base_add.plist = { p1: p1, p2: p2, p3: p3, p4: p4 };
         //определим размеры и число влияющих фундаментов
         // если какие-нибудь координаты 2 точек будут равны 0 - это будет первый случай, и влияемый фундамент будет разделен на 2
@@ -354,12 +347,8 @@ class SqBase {
 exports.SqBase = SqBase;
 class Outflanking {
     Main() {
-        let ige1 = new Ige({ h: 3.6, e: 1800, waterHold: "yes", γ: 1.7 });
-        let ige2 = new Ige({ h: 1.8, e: 900, waterHold: "no", γ: 1.7 });
-        let ige3 = new Ige({ h: 8.5, e: 1500, waterHold: "no", γ: 1.7 });
-        let l = [1, 2, 3];
-        let listLayers1 = [ige1, ige2, ige3];
-        let listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
+        let ige1 = new Ige({ h: 3.6, e: 1800, waterHold: "yes", γ: 1.7 }), ige2 = new Ige({ h: 1.8, e: 900, waterHold: "no", γ: 1.7 }), ige3 = new Ige({ h: 8.5, e: 1500, waterHold: "no", γ: 1.7 });
+        let l = [1, 2, 3], listLayers1 = [ige1, ige2, ige3], listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
         // весь упор делаем на интерфейсах (на его минимизации, простоте вызовов) весь функционал Laerse выносим в класс фундаментов
         // класса осадки - тоже
         let fund1 = new SqBase({ name: "Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: { nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5 } });

@@ -81,8 +81,7 @@ export class Ige {
 	σ_zpi_method(p:number, b:number, etta:number){
 		let ksi = 2*this.z2/b;
 		if (ksi > 12) {ksi = 12; console.log("warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})")};
-		var interPol = new Interpolation;
-		let a = interPol.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
+		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
 		this.σ_zpi = a * p;
 		this.σ_zpi4 = this.σ_zpi / 4;
 		return this.σ_zpi;
@@ -90,8 +89,7 @@ export class Ige {
 	σ_z_gamma_i(zg0:number, bk:number, etta_k:number){
 		let ksi_k = 2*this.z2/bk;
 		if (ksi_k > 12) {ksi_k = 12; console.log("warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})")};
-		var interPol = new Interpolation;
-		let a = interPol.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
+		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
 		this.σ_zgi = a * zg0;
 		return this.σ_zgi;
 	}
@@ -265,18 +263,18 @@ export class SqBase {
 		};
 	}
 	osadka_add(obj_base_add: SqBase){ // в этом месте будет считаться добавочная осадка от влияющего фундамента
-		let fund_pull = [];
-		let dx = Math.abs(obj_base_add.x - this.x);
-		let dy = Math.abs(obj_base_add.y - this.y);
+		let fund_pull = [],
+			dx = Math.abs(obj_base_add.x - this.x),
+			dy = Math.abs(obj_base_add.y - this.y);
 		// определим условные координаты влияющего фундамента относительно 0 (на который влияют)
 		//
 		//  p4   p3
 		//
 		//  p1   p2
-		let p1 = new Point({x: dx - (obj_base_add.l/2), y: dy - (obj_base_add.b/2)});
-		let p2 = new Point({x: dx + (obj_base_add.l/2), y: dy - (obj_base_add.b/2)});
-		let p3 = new Point({x: dx + (obj_base_add.l/2), y: dy + (obj_base_add.b/2)});
-		let p4 = new Point({x: dx - (obj_base_add.l/2), y: dy + (obj_base_add.b/2)});
+		let p1 = new Point({x: dx - (obj_base_add.l/2), y: dy - (obj_base_add.b/2)}),
+			p2 = new Point({x: dx + (obj_base_add.l/2), y: dy - (obj_base_add.b/2)}),
+			p3 = new Point({x: dx + (obj_base_add.l/2), y: dy + (obj_base_add.b/2)}),
+			p4 = new Point({x: dx - (obj_base_add.l/2), y: dy + (obj_base_add.b/2)});
 		obj_base_add.plist = {p1: p1, p2: p2, p3: p3, p4: p4};
 		//определим размеры и число влияющих фундаментов
 		// если какие-нибудь координаты 2 точек будут равны 0 - это будет первый случай, и влияемый фундамент будет разделен на 2
