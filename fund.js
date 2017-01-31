@@ -96,6 +96,7 @@ class Ige {
         return [this.σzg, this.u];
     }
 }
+exports.Ige = Ige;
 class Point {
     constructor(obj) {
         this.x = obj.x;
@@ -107,6 +108,7 @@ class Point {
         this.y = z;
     }
 }
+exports.Point = Point;
 class SqBase {
     constructor(obj) {
         this.x = 0;
@@ -324,6 +326,7 @@ class SqBase {
         // для этого берется фундамент из пула, считаются в нем напряжения в пределах его сжимаемой толщи (в соответствии со знаком)
         // и добавляются в рассматриваемый фундамент
         for (var item of fund_pull) {
+            item.b_sect = this.b_sect; // здесь учитывается различная разбивка на слои
             item.osadka();
         }
         ;
@@ -348,6 +351,7 @@ class SqBase {
         this.osadka_eval(s); // посчитали осадку основного фундамента
     }
 }
+exports.SqBase = SqBase;
 class Outflanking {
     Main() {
         let ige1 = new Ige({ h: 3.6, e: 1800, waterHold: "yes", γ: 1.7 });
@@ -390,10 +394,13 @@ class Outflanking {
         ;
         // и распечатаем все нахер
         for (var item of fund_list) {
-            item.pdf_render();
+            //item.pdf_render();
+            console.log("фунд н");
+            console.log(item);
         }
         ;
     }
     ;
 }
+exports.Outflanking = Outflanking;
 //# sourceMappingURL=fund.js.map

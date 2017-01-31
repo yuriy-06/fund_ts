@@ -11,7 +11,7 @@ interface HasIge{
 	e_por?:number;
 }
 
-class Ige {
+export class Ige {
 	name: string;
 	h:number;
 	z1:number;
@@ -134,7 +134,7 @@ interface HasSqBase{
 	b_k?: number;
 	level?: number;
 }
-class Point{
+export class Point{
 	x: number;
 	y: number;
 	constructor(obj){
@@ -146,7 +146,7 @@ class Point{
 		this.y = z;
 	}
 }
-class SqBase {
+export class SqBase {
 	name: string;
 	x: number = 0;
 	y: number = 0;
@@ -314,9 +314,10 @@ class SqBase {
 		// для этого берется фундамент из пула, считаются в нем напряжения в пределах его сжимаемой толщи (в соответствии со знаком)
 		// и добавляются в рассматриваемый фундамент
 		for(var item of fund_pull){
+			item.b_sect = this.b_sect; // здесь учитывается различная разбивка на слои
 			item.osadka();
 			//чтобы добавить напряжения в рассматриваемый фундамент, надо добавить опред. методы
-			// например учесть разность по высоте и различную разбивку на слои
+			// например учесть разность по высоте 
 		};
 		
 	}
@@ -342,23 +343,23 @@ class SqBase {
 	}
 }
 
-class Outflanking 
+export class Outflanking 
 {
 Main() {
-	let ige1 = new Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7});
-	let ige2 = new Ige({h:1.8, e:900, waterHold:"no", γ:1.7});
-	let ige3 = new Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
-	let l = [1, 2, 3];
-	let listLayers1 = [ige1, ige2, ige3];
-	let listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
+	let ige1 = new Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7}),
+		ige2 = new Ige({h:1.8, e:900, waterHold:"no", γ:1.7}),
+		ige3 = new Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
+	let l = [1, 2, 3],
+		listLayers1 = [ige1, ige2, ige3],
+		listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
 
 	// весь упор делаем на интерфейсах (на его минимизации, простоте вызовов) весь функционал Laerse выносим в класс фундаментов
 	// класса осадки - тоже
-	let fund1 = new SqBase ({name:"Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}})
+	let fund1 = new SqBase ({name:"Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
 	fund1.xy(0, 0) 
-	let fund2 = new SqBase({name:"Fm2", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 8, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}})
+	let fund2 = new SqBase({name:"Fm2", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 8, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
 	fund2.xy(5, 0)
-	let fund3 = new SqBase({name: "Fm3", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 12.3, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}})
+	let fund3 = new SqBase({name: "Fm3", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 12.3, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
 	fund3.xy(4, 0)
 	fund1.listLayers = listLayers1; // задаем геологию для фундаментов
 	fund2.listLayers = listLayers2;
@@ -381,7 +382,9 @@ Main() {
 		};
 	// и распечатаем все нахер
 	for(var item of fund_list){
-		item.pdf_render();
+		//item.pdf_render();
+		console.log("фунд н");
+		console.log(item);
 		// нет, думаю надо поднимать приложение на ruby и печататься на нем
 		// нигде нет такого удобного API
 	};};

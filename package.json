@@ -1,6 +1,24 @@
 {
-	"author"	: "Yurij Vdovik",
-	"name"		: "Outflanking_ts",
-	"version"	: "0.0.1",
-	"devDependencies" : {lodash.times}
+  "author": "Yurij Vdovik",
+  "email": "babah.yuriy06@gmail.com",
+  "name": "Outflanking_ts",
+  "version": "0.0.1",
+  "Description": "Программа рассчитывает осадку столбчатых прямоугольных фундаментов",
+  "keywords": [
+    "base",
+    "outflanking"
+  ],
+  "homepage": "lira-ke.ru",
+  "license": "MIT",
+  "files": [
+    "interpolation.js",
+    "fund.js"
+  ],
+  "main": "fund.js",
+  "dependencies": {
+    "lodash.times": "4.3.2"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.3"
+  }
 }
