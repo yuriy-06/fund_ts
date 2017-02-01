@@ -353,11 +353,11 @@ Main() {
 	// весь упор делаем на интерфейсах (на его минимизации, простоте вызовов) весь функционал Laerse выносим в класс фундаментов
 	// класса осадки - тоже
 	let fund1 = new SqBase ({name:"Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
-	fund1.xy(0, 0) 
+	fund1.xy(0, 0);
 	let fund2 = new SqBase({name:"Fm2", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 8, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
-	fund2.xy(5, 0)
+	fund2.xy(5, 0);
 	let fund3 = new SqBase({name: "Fm3", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 12.3, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
-	fund3.xy(4, 0)
+	fund3.xy(4, 0);
 	fund1.listLayers = listLayers1; // задаем геологию для фундаментов
 	fund2.listLayers = listLayers2;
 	fund3.listLayers = listLayers2;

@@ -27,4 +27,25 @@ describe("здесь мы проверяем модуль Interpolation", () => 
 		expect(val).toBe(0.958);
 	});
 
+
+
+	
+
 });
+
+describe("здесь мы проверяем методы непосредственно классов основной программы", () => {
+
+		it("Проверим метод splitArray", () => {
+		let ige1 = new Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7}),
+			ige2 = new Ige({h:1.8, e:900, waterHold:"no", γ:1.7}),
+			ige3 = new Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
+		listLayers1 = [ige1, ige2, ige3];
+		let fund1 = new SqBase ({name:"Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
+		fund1.xy(0, 0);
+		fund1.listLayers = listLayers1;
+		fund1.splitArray();
+
+		//expect(val).toBe(0.958);
+		});
+
+	});
