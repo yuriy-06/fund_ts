@@ -1,5 +1,4 @@
 import {Interpolation} from './interpolation'
-//import * as _ from "./node_modules/lodash/index"
 import * as _ from "lodash.times/index"
 interface HasIge{
 	h:number;
