@@ -1,5 +1,6 @@
 import {Interpolation} from './interpolation'
-import * as _ from "lodash.times/index"
+import times = require('lodash.times');
+import clone = require('lodash.clone');
 interface HasIge{
 	h:number;
 	e: number;
@@ -199,13 +200,13 @@ export class SqBase {
 			console.log(item.h);
 			let n = Math.floor(item.h/this.b_sect); // целая часть от деления
 			let m = item.h % this.b; // остаток от деления
-			_.times(n, ()=> {
-				let c = _.clone(item);
+			times(n, ()=> {
+				let c = clone(item);
 				c.h = m;
 				listCollect.push(c);
 				//# здесь мы копируем слой, изменяя его запись h, и накапливая слои в list_collect
 				});
-				if (m != 0.0) {let c = _.clone(item); c.h = m; listCollect.push(c);};
+				if (m != 0.0) {let c = clone(item); c.h = m; listCollect.push(c);};
 		};
 		this.listLayers = listCollect;
 		return listCollect;
@@ -346,7 +347,7 @@ Main() {
 	let ige1 = new Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7}),
 		ige2 = new Ige({h:1.8, e:900, waterHold:"no", γ:1.7}),
 		ige3 = new Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
-	let l = [1, 2, 3],
+	let l = [1, 2, 3], // зачем это?
 		listLayers1 = [ige1, ige2, ige3],
 		listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
 

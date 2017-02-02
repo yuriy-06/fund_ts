@@ -1,7 +1,7 @@
 "use strict";
 const interpolation_1 = require("./interpolation");
-//import * as _ from "./node_modules/lodash/index"
-const _ = require("lodash.times/index");
+const times = require("lodash.times");
+const clone = require("lodash.clone");
 class Ige {
     constructor(obj) {
         this.alfa_etta_ksi_m = [
@@ -153,14 +153,14 @@ class SqBase {
             console.log(item.h);
             let n = Math.floor(item.h / this.b_sect); // целая часть от деления
             let m = item.h % this.b; // остаток от деления
-            _.times(n, () => {
-                let c = _.clone(item);
+            times(n, () => {
+                let c = clone(item);
                 c.h = m;
                 listCollect.push(c);
                 //# здесь мы копируем слой, изменяя его запись h, и накапливая слои в list_collect
             });
             if (m != 0.0) {
-                let c = _.clone(item);
+                let c = clone(item);
                 c.h = m;
                 listCollect.push(c);
             }
@@ -348,7 +348,8 @@ exports.SqBase = SqBase;
 class Outflanking {
     Main() {
         let ige1 = new Ige({ h: 3.6, e: 1800, waterHold: "yes", γ: 1.7 }), ige2 = new Ige({ h: 1.8, e: 900, waterHold: "no", γ: 1.7 }), ige3 = new Ige({ h: 8.5, e: 1500, waterHold: "no", γ: 1.7 });
-        let l = [1, 2, 3], listLayers1 = [ige1, ige2, ige3], listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
+        let l = [1, 2, 3], // зачем это?
+        listLayers1 = [ige1, ige2, ige3], listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
         // весь упор делаем на интерфейсах (на его минимизации, простоте вызовов) весь функционал Laerse выносим в класс фундаментов
         // класса осадки - тоже
         let fund1 = new SqBase({ name: "Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: { nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5 } });
