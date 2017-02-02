@@ -196,18 +196,17 @@ export class SqBase {
 	}
 	splitArray(){ // дописывается на js
 		let listCollect = []; 
-		console.log(this.b_sect);
 		for (var item of this.listLayers){
 			//console.log(item.h);
 			let n = Math.floor(item.h/this.b_sect); // целая часть от деления
-			let m = item.h % this.b; // остаток от деления
+			let m = item.h % this.b_sect; // остаток от деления
 			times(n, ()=> {
 				let c = clone(item);
-				c.h = m;
+				c.h = parseFloat(this.b_sect.toFixed(3));
 				listCollect.push(c);
 				//# здесь мы копируем слой, изменяя его запись h, и накапливая слои в list_collect
 				});
-				if (m != 0.0) {let c = clone(item); c.h = m; listCollect.push(c);};
+				if (m != 0.0) {let c = clone(item); c.h = parseFloat(m.toFixed(3)); listCollect.push(c);};
 		};
 		this.listLayers = listCollect;
 		return listCollect;
@@ -281,7 +280,7 @@ export class SqBase {
 		// если какие-нибудь координаты 2 точек будут равны 0 - это будет первый случай, и влияемый фундамент будет разделен на 2
 		let fund2procx = function(n1, n2, fund_vl)
 			{// f1, f2 - фундаменты на которые делится влияющий
-			let f1 = _.clone(fund_vl); let f2 = _.clone(fund_vl);
+			let f1 = clone(fund_vl); let f2 = clone(fund_vl);
 			f1.l = Math.abs(n1.x); f1.b = Math.abs(n1.y); f1.sign = '+'; // учитываются знаки для влияющих фундаментов
 			f2.l = Math.abs(n1.x); f2.b = Math.abs(n2.y); f2.sign = '-';
 			return [f1, f2];
@@ -303,10 +302,10 @@ export class SqBase {
 		fund2procxy(obj_base_add);
 		// если 2 случая выше не удовлетворяются значит выполняется третий случай и влияющий фундамент расположен по диогонали (делится на 4 фундамента)
 		if ((dx > (obj_base_add.b/2)) &&(dy > (obj_base_add.b/2))) {
-			let f1 = _.clone(obj_base_add); f1.l = p3.x; f1.b = p3.y; f1.sign = '+';
-			let f2 = _.clone(obj_base_add); f2.l = p4.x; f2.b = p4.y; f2.sign = '-';
-			let f3 = _.clone(obj_base_add); f3.l = p2.x; f3.b = p2.y; f3.sign = '-';
-			let f4 = _.clone(obj_base_add); f4.l = p1.x; f4.b = p1.y; f4.sign = '+';
+			let f1 = clone(obj_base_add); f1.l = p3.x; f1.b = p3.y; f1.sign = '+';
+			let f2 = clone(obj_base_add); f2.l = p4.x; f2.b = p4.y; f2.sign = '-';
+			let f3 = clone(obj_base_add); f3.l = p2.x; f3.b = p2.y; f3.sign = '-';
+			let f4 = clone(obj_base_add); f4.l = p1.x; f4.b = p1.y; f4.sign = '+';
 			fund_pull = [f1, f2, f3, f4];
 		};
 		// здесь идет блок кода - расчет добавочных напряжений от влияющих фундаментов и внедрение их в рассматр. фунд.
@@ -374,7 +373,7 @@ Main() {
 	};
 	let i = 0;
 	for(var item of fund_list){// берем отдельный фундамент и от всех оставшихся в списке вычисляем добавочную осадку
-		let cflist= _.clone(fund_list);
+		let cflist= clone(fund_list);
 		delete cflist[i];
 		f_sall(item, cflist);
 		i++;

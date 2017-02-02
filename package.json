@@ -17,6 +17,7 @@
   "main": "fund.js",
   "dependencies": {
     "lodash.clone": "^4.5.0",
+    "lodash.isequal": "^4.5.0",
     "lodash.times": "4.3.2"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 "use strict";
 const Interpolation = require("../interpolation");
 const Outflanking = require("../fund");
+const isEqual = require("lodash.isequal");
 
 describe("здесь мы проверяем модуль Interpolation\n", () => {
 
@@ -40,18 +41,19 @@ describe("здесь мы проверяем методы непосредств
 		
 	it("Проверим метод splitArray", () => {
 
-		let f_log = (msg) => {
+		/*let f_log = (msg) => {
 			msg; let sum = 0;
 			for(var item of fund1.listLayers){console.log(item.h); sum += item.h};
 			console.log(`sum = ${sum}`);};
 
-		f_log(console.log("было"));
+		f_log(console.log("было"));*/
 
 		fund1.splitArray();
 
-		f_log(console.log("стало"));
-
-		//expect(0.8).toBe(0.8);
-		});
+		//f_log(console.log("стало"));
+		let collect = [];
+		for(var item of fund1.listLayers){collect.push(item.h);};
+		let t = isEqual([0.8, 0.8, 0.8, 0.8, 0.4, 0.8, 0.8, 0.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.5], collect);
+		expect(t).toBe(true);});
 
 	});
