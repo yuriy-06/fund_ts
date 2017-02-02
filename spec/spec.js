@@ -1,6 +1,5 @@
 "use strict";
 const Interpolation = require("../interpolation");
-//import {Interpolation} from "g:/fund_ts/interpolation";
 const Outflanking = require("../fund");
 
 describe("здесь мы проверяем модуль Interpolation\n", () => {
@@ -40,11 +39,19 @@ describe("здесь мы проверяем методы непосредств
 		fund1.listLayers = listLayers1;
 		
 	it("Проверим метод splitArray", () => {
-		console.log(fund1.listLayers);
+
+		let f_log = (msg) => {
+			msg; let sum = 0;
+			for(var item of fund1.listLayers){console.log(item.h); sum += item.h};
+			console.log(`sum = ${sum}`);};
+
+		f_log(console.log("было"));
+
 		fund1.splitArray();
-		let b = fund1.b_sect;
-		console.log(fund1.listLayers);
-		expect(b).toBe(0.8);
+
+		f_log(console.log("стало"));
+
+		//expect(0.8).toBe(0.8);
 		});
 
 	});

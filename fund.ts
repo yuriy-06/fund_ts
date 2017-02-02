@@ -196,8 +196,9 @@ export class SqBase {
 	}
 	splitArray(){ // дописывается на js
 		let listCollect = []; 
+		console.log(this.b_sect);
 		for (var item of this.listLayers){
-			console.log(item.h);
+			//console.log(item.h);
 			let n = Math.floor(item.h/this.b_sect); // целая часть от деления
 			let m = item.h % this.b; // остаток от деления
 			times(n, ()=> {
