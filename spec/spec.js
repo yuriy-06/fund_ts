@@ -56,4 +56,17 @@ describe("здесь мы проверяем методы непосредств
 		let t = isEqual([0.8, 0.8, 0.8, 0.8, 0.4, 0.8, 0.8, 0.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.5], collect);
 		expect(t).toBe(true);});
 
+		it("Проверим метод zCreate", () => {
+
+		fund1.zCreate();
+		let z1Collect=[]; let z2Collect = [];
+		for(var item of fund1.listLayers){z1Collect.push(item.z1);};
+		console.log(`z1Collect = ${z1Collect}`);
+		console.log(`z2Collect = ${z2Collect}`);
+
+
+
+		//let t = isEqual([0.8, 0.8, 0.8, 0.8, 0.4, 0.8, 0.8, 0.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.5], collect);
+		expect(true).toBe(true);});
+
 	});

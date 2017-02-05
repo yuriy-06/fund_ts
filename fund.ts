@@ -343,7 +343,7 @@ export class SqBase {
 
 export class Outflanking 
 {
-Main() {
+static Main() {
 	let ige1 = new Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7}),
 		ige2 = new Ige({h:1.8, e:900, waterHold:"no", γ:1.7}),
 		ige3 = new Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
@@ -367,9 +367,9 @@ Main() {
 	for(var item of fund_list){item.osadka()}; // вычислили осадки в каждом фундаменте без учета влияния соседних
 	let f_sall = function(obj:SqBase,flist:SqBase[]){// последовательно вычислит добавочную осадку в объетах
 		if (flist != []){
-			for(var elem of flist){
-				obj.osadka_add(elem);
-			}}
+			for(var item of flist){ // Вот здесь странная ошибка!!!
+				obj.osadka_add(item);
+			}};
 	};
 	let i = 0;
 	for(var item of fund_list){// берем отдельный фундамент и от всех оставшихся в списке вычисляем добавочную осадку
@@ -387,3 +387,4 @@ Main() {
 		// нигде нет такого удобного API
 	};};
 }
+Outflanking.Main();

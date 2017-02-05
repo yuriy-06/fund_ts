@@ -346,7 +346,7 @@ class SqBase {
 }
 exports.SqBase = SqBase;
 class Outflanking {
-    Main() {
+    static Main() {
         let ige1 = new Ige({ h: 3.6, e: 1800, waterHold: "yes", γ: 1.7 }), ige2 = new Ige({ h: 1.8, e: 900, waterHold: "no", γ: 1.7 }), ige3 = new Ige({ h: 8.5, e: 1500, waterHold: "no", γ: 1.7 });
         let l = [1, 2, 3], // зачем это?
         listLayers1 = [ige1, ige2, ige3], listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
@@ -369,10 +369,11 @@ class Outflanking {
         ; // вычислили осадки в каждом фундаменте без учета влияния соседних
         let f_sall = function (obj, flist) {
             if (flist != []) {
-                for (var elem of flist) {
-                    obj.osadka_add(elem);
+                for (var item of flist) {
+                    obj.osadka_add(item);
                 }
             }
+            ;
         };
         let i = 0;
         for (var item of fund_list) {
@@ -393,4 +394,5 @@ class Outflanking {
     ;
 }
 exports.Outflanking = Outflanking;
+Outflanking.Main();
 //# sourceMappingURL=fund.js.map
