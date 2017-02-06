@@ -55,7 +55,7 @@ class Ige {
         let ksi = 2 * this.z2 / b;
         if (ksi > 12) {
             ksi = 12;
-            console.log("warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})");
+            console.log(`warning, in z = ${this.z2}, ksi > 12 (${2 * this.z2 / b})`);
         }
         ;
         let a = interpolation_1.Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
@@ -67,7 +67,7 @@ class Ige {
         let ksi_k = 2 * this.z2 / bk;
         if (ksi_k > 12) {
             ksi_k = 12;
-            console.log("warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})");
+            console.log(`warning, in z = ${this.z2}, ksi_k > 12 (${2 * this.z2 / bk})`);
         }
         ;
         let a = interpolation_1.Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
@@ -348,8 +348,7 @@ exports.SqBase = SqBase;
 class Outflanking {
     static Main() {
         let ige1 = new Ige({ h: 3.6, e: 1800, waterHold: "yes", γ: 1.7 }), ige2 = new Ige({ h: 1.8, e: 900, waterHold: "no", γ: 1.7 }), ige3 = new Ige({ h: 8.5, e: 1500, waterHold: "no", γ: 1.7 });
-        let l = [1, 2, 3], // зачем это?
-        listLayers1 = [ige1, ige2, ige3], listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
+        let listLayers1 = [ige1, ige2, ige3], listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
         // весь упор делаем на интерфейсах (на его минимизации, простоте вызовов) весь функционал Laerse выносим в класс фундаментов
         // класса осадки - тоже
         let fund1 = new SqBase({ name: "Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: { nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5 } });
@@ -369,16 +368,16 @@ class Outflanking {
         ; // вычислили осадки в каждом фундаменте без учета влияния соседних
         let f_sall = function (obj, flist) {
             if (flist != []) {
-                for (var item of flist) {
-                    obj.osadka_add(item);
+                for (var elem of flist) {
+                    obj.osadka_add(elem);
                 }
             }
             ;
         };
         let i = 0;
         for (var item of fund_list) {
-            let cflist = clone(fund_list);
-            delete cflist[i];
+            var cflist = clone(fund_list);
+            cflist.splice(i, 1);
             f_sall(item, cflist);
             i++;
         }

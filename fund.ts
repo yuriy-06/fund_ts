@@ -80,7 +80,7 @@ export class Ige {
 	}
 	σ_zpi_method(p:number, b:number, etta:number){
 		let ksi = 2*this.z2/b;
-		if (ksi > 12) {ksi = 12; console.log("warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})")};
+		if (ksi > 12) {ksi = 12; console.log(`warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})`)};
 		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
 		this.σ_zpi = a * p;
 		this.σ_zpi4 = this.σ_zpi / 4;
@@ -88,7 +88,7 @@ export class Ige {
 	}
 	σ_z_gamma_i(zg0:number, bk:number, etta_k:number){
 		let ksi_k = 2*this.z2/bk;
-		if (ksi_k > 12) {ksi_k = 12; console.log("warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})")};
+		if (ksi_k > 12) {ksi_k = 12; console.log(`warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})`)};
 		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
 		this.σ_zgi = a * zg0;
 		return this.σ_zgi;
@@ -347,7 +347,7 @@ static Main() {
 	let ige1 = new Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7}),
 		ige2 = new Ige({h:1.8, e:900, waterHold:"no", γ:1.7}),
 		ige3 = new Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
-	let l = [1, 2, 3], // зачем это?
+	let 
 		listLayers1 = [ige1, ige2, ige3],
 		listLayers2 = [ige1, ige3.newh(5.0), ige2.newh(5.6)];
 
@@ -367,14 +367,14 @@ static Main() {
 	for(var item of fund_list){item.osadka()}; // вычислили осадки в каждом фундаменте без учета влияния соседних
 	let f_sall = function(obj:SqBase,flist:SqBase[]){// последовательно вычислит добавочную осадку в объетах
 		if (flist != []){
-			for(var item of flist){ // Вот здесь странная ошибка!!!
-				obj.osadka_add(item);
+			for (var elem of flist){ // Вот здесь странная ошибка!!!
+				obj.osadka_add(elem);
 			}};
 	};
 	let i = 0;
 	for(var item of fund_list){// берем отдельный фундамент и от всех оставшихся в списке вычисляем добавочную осадку
-		let cflist= clone(fund_list);
-		delete cflist[i];
+		var cflist = clone(fund_list);
+		cflist.splice(i,1);
 		f_sall(item, cflist);
 		i++;
 		};
