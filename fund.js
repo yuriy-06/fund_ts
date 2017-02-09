@@ -386,7 +386,6 @@ class Outflanking {
         for (var item of fund_list) {
             //item.pdf_render();
             console.log("фунд н");
-            console.log(item);
         }
         ;
     }

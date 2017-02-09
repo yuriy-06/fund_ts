@@ -58,15 +58,53 @@ describe("здесь мы проверяем методы непосредств
 
 		it("Проверим метод zCreate", () => {
 
-		fund1.zCreate();
-		let z1Collect=[]; let z2Collect = [];
-		for(var item of fund1.listLayers){z1Collect.push(item.z1);};
-		console.log(`z1Collect = ${z1Collect}`);
-		console.log(`z2Collect = ${z2Collect}`);
+			fund1.zCreate();
+			let z1Collect=[]; let z2Collect = [];
+			for(var item of fund1.listLayers){z1Collect.push(parseFloat(item.z1.toFixed(3)));};
+			for(var item of fund1.listLayers){z2Collect.push(parseFloat(item.z2.toFixed(3)));};
+			//console.log(`z1Collect = ${z1Collect}`);
+			//console.log(`z2Collect = ${z2Collect}`);
 
 
 
-		//let t = isEqual([0.8, 0.8, 0.8, 0.8, 0.4, 0.8, 0.8, 0.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.5], collect);
-		expect(true).toBe(true);});
+			let z1 = isEqual([0, 0.8, 1.6, 2.4, 3.2, 3.6, 4.4, 5.2, 5.4, 6.2, 7, 7.8, 8.6, 9.4, 10.2, 11, 11.8, 12.6, 13.4], z1Collect);
+			let z2 = isEqual([0.8, 1.6, 2.4, 3.2, 3.6, 4.4, 5.2, 5.4, 6.2, 7, 7.8, 8.6, 9.4, 10.2, 11, 11.8, 12.6, 13.4, 13.9], z2Collect);
+			expect(true).toBe(z1);
+			expect(true).toBe(z2);
+
+		
+	
+		});
+
+		it("проверим метод σ_eval", ()=> {
+
+
+		});
+
+		it("проверим метод hc_eval", ()=> {
+
+			
+		});
+
+		it("проверим метод hc_7_method", ()=> {
+
+			
+		});
+
+		it("проверим метод hc_eval_7", ()=> {
+
+			
+		});
+
+		it("проверим метод osadka_eval", ()=> {
+
+			
+		});
+		
+		it("проверим метод osadka_add", ()=> {
+
+			
+		});
+
 
 	});

@@ -382,7 +382,7 @@ static Main() {
 	for(var item of fund_list){
 		//item.pdf_render();
 		console.log("фунд н");
-		console.log(item);
+		//console.log(item);
 		// нет, думаю надо поднимать приложение на ruby и печататься на нем
 		// нигде нет такого удобного API
 	};};
