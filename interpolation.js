@@ -1,6 +1,11 @@
 "use strict";
+const isEqual = require("lodash.isequal");
 class Interpolation {
     static index(m, p) {
+        if (m == undefined) {
+            console.log("in Interpolation.index m - undefined");
+        }
+        ;
         let count = 0;
         for (var item of m) {
             if (item >= p) {
@@ -11,6 +16,7 @@ class Interpolation {
             }
             ;
         }
+        ;
         if ((count - 1) > m.length) {
             console.log(`in Interpolation.index - выход за пределы индекса, count - 1 = ${count - 1} > m.size = ${m.length}`);
         }
@@ -22,8 +28,16 @@ class Interpolation {
         return z;
     }
     static int2d(main_m, xm, ym, x, y) {
+        if (main_m == undefined) {
+            console.log("in Interpolation.int2d main_m is indefined");
+        }
+        ;
         let x1index = this.index(xm, x), x2index = x1index + 1, y1index = this.index(ym, y), y2index = y1index + 1;
-        if (xm == [] || ym == [] || main_m == []) {
+        if (x1index == undefined || x2index == undefined || y1index == undefined || y2index == undefined) {
+            console.log("in Interpolation.int2d x1index || x2index  ||	y1index  ||	y2index  is undefined");
+        }
+        ;
+        if (isEqual(xm, []) || isEqual(ym, []) || isEqual(main_m, [])) {
             console.log(`in int2d - ошибка аргумента, xm=${xm}, ym=${ym}, main_m=${main_m}, x=${x}, y=${y}`);
         }
         ;

@@ -1,6 +1,7 @@
 import {Interpolation} from './interpolation'
 import times = require('lodash.times');
 import clone = require('lodash.clone');
+
 interface HasIge{
 	h:number;
 	e: number;
@@ -80,15 +81,18 @@ export class Ige {
 	}
 	σ_zpi_method(p:number, b:number, etta:number){
 		let ksi = 2*this.z2/b;
-		if (ksi > 12) {ksi = 12; console.log(`warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})`)};
+		if (ksi > 12) 
+			{ksi = 12; console.log(`warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})`)};
 		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
+		console.log(`alfa = ${a}`);
 		this.σ_zpi = a * p;
 		this.σ_zpi4 = this.σ_zpi / 4;
 		return this.σ_zpi;
 	}
 	σ_z_gamma_i(zg0:number, bk:number, etta_k:number){
 		let ksi_k = 2*this.z2/bk;
-		if (ksi_k > 12) {ksi_k = 12; console.log(`warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})`)};
+		if (ksi_k > 12) 
+			{ksi_k = 12; console.log(`warning, in z = ${this.z2}, ksi_k > 12 (${2*this.z2/bk})`)};
 		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta_k, ksi_k);
 		this.σ_zgi = a * zg0;
 		return this.σ_zgi;
