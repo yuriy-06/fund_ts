@@ -111,15 +111,26 @@ describe("здесь мы проверяем методы непосредств
 
 				};
 				//stream.end();
-			let val1 = mEqual(alfa_m, [0.8525, 0.5435, 0.3372, 0.2202, 0.1820, 0.1298, 0.0965, 0.0902, 0.0700, 0.0554, 0.0449, 0.0372, 0.0315, 0.0268, 0.0231, 0.0202, 0.0162, 0.0122, 0.0098]);
-			expect(true).toBe(val1);
+			let alfa_val = mEqual(alfa_m, [0.8525, 0.5435, 0.3372, 0.2202, 0.1820, 0.1298, 0.0965, 0.0902, 0.0700, 0.0554, 0.0449, 0.0372, 0.0315, 0.0268, 0.0231, 0.0202, 0.0162, 0.0122, 0.0098]);
+			expect(true).toBe(alfa_val);
 			fund1.σ_eval();
-			let σ_zpi_m = [], σ_zpi4_m = [], σ_z_gamma_i_m = [], σzg_m=[], u_m=[];
+			let σ_zpi_m = [], σ_zpi4_m = [], ak_m=[], σ_z_gamma_i_m = [], σzg_m=[], u_m=[];
 			for (var item of fund1.listLayers){
-				σ_zpi_m.push(item.σ_zpi); σ_zpi4_m.push(item.σ_zpi4); σ_z_gamma_i_m.push(item.σ_zgi); σzg_m.push(item.σzg); u_m.push(item.u);
+				σ_zpi_m.push(item.σ_zpi); σ_zpi4_m.push(item.σ_zpi4); 
+				let ak =Interpolation.Interpolation.int2d(fund1.alfa_etta_ksi_m, fund1.etta_m, fund1.ksi_m, 1.3333, 2*item.z2/item.bk);
+				ak_m.push(ak);
+				σ_z_gamma_i_m.push(item.σ_zgi); σzg_m.push(item.σzg); u_m.push(item.u);
 
 			};
-			let val2 = mEqual([2.125, 1.355, 0.841, 0.549, 0.454, 0.324, 0.241, 0.225, 0.175, 0.138, 0.112, 0.093, 0.079, 0.067, 0.058, 0.050, 0.040, 0.030, 0.024], σ_zpi_m);
+			let σ_zpi_val = mEqual([2.125, 1.355, 0.841, 0.549, 0.454, 0.324, 0.241, 0.225, 0.175, 0.138, 0.112, 0.093, 0.079, 0.067, 0.058, 0.050, 0.040, 0.030, 0.024], σ_zpi_m);
+			expect(true).toBe(σ_zpi_val);
+			let σ_zpi4_val = mEqual(σ_zpi4_m, [0.531, 0.339, 0.210, 0.137, 0.113, 0.081, 0.060, 0.056, 0.044, 0.035, 0.028, 0.023, 0.020, 0.017, 0.014, 0.013, 0.010, 0.008, 0.006]);
+			expect(true).toBe(σ_zpi4_val);
+			console.log("alfa_k = ");
+			console.log(ak_m);
+			let σ_z_gamma_i_val = mEqual(σ_z_gamma_i_m, [1.841, 1.174, 0.728, 0.476, 0.393, 0.280, 0.208, 0.195, 0.151, 0.120, 0.097, 0.080, 0.068, 0.058, 0.050, 0.044, 0.035, 0.026, 0.021]);
+			expect(true).toBe(σ_z_gamma_i_val);
+			//console.log(σ_z_gamma_i_m);
 			});
 
 		it("проверим метод hc_eval", ()=> {
