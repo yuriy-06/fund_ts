@@ -82,7 +82,7 @@ export class Ige {
 	σ_zpi_method(p:number, b:number, etta:number){
 		let ksi = 2*this.z2/b;
 		if (ksi > 12) 
-			{ksi = 12; console.log(`warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})`)};
+			{/*ksi = 12;*/ console.log(`warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})`)};
 		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
 		//console.log(`alfa = ${a}`);
 		this.σ_zpi = a * p;

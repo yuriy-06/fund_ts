@@ -2,6 +2,17 @@
 const Interpolation = require("../interpolation");
 const Outflanking = require("../fund");
 const isEqual = require("lodash.isequal");
+/*var fs = require('fs');
+var stream = fs.createWriteStream("alfa.txt");*/
+
+function mEqual(m1, m2){
+	let len = m1.length;
+	if (len != m2.length){return false;};
+	for(var i =0; i < len; i++){
+		if (m1[i] - m2[i] > 0.001){return false;};
+		};
+		return true;
+	};
 
 describe("здесь мы проверяем модуль Interpolation\n", () => {
 
@@ -72,7 +83,7 @@ describe("здесь мы проверяем методы непосредств
 			for(var item of fund1.listLayers){z2Collect.push(parseFloat(item.z2.toFixed(3)));};
 			let eCollect = [];
 			for(var item of fund1.listLayers){eCollect.push(item.e);};
-			console.log(`eCollect = ${eCollect}`);
+			//console.log(`eCollect = ${eCollect}`);
 			//console.log(`z1Collect = ${z1Collect}`);
 			//console.log(`z2Collect = ${z2Collect}`);
 
@@ -88,12 +99,28 @@ describe("здесь мы проверяем методы непосредств
 			expect(2.493).toBe(parseFloat(fund1.p.toFixed(3)));
 			expect(2.16).toBe(fund1.σ_zg0);
 			// распечатаем к-ты альфа
-			console.log(" распечатаем к-ты альфа ");
-			debugger;
-			//for(var item of [0.8, 1.6, 2.4, 3.2, 3.6, 4.4, 5.2, 5.4, 6.2, 7, 7.8, 8.6, 9.4, 10.2, 11, 11.8, 12.0, 12.0, 12.1])
-			for(var item of [12.1])
-				{console.log(Interpolation.Interpolation.int2d(fund1.listLayers[0].alfa_etta_ksi_m, fund1.listLayers[0].etta_m, fund1.listLayers[0].ksi_m, 1.5, item));};
-		});
+			//console.log(" распечатаем к-ты альфа ");
+			let alfa_m = [];
+			for(var item of [0.8, 1.6, 2.4, 3.2, 3.6, 4.4, 5.2, 5.4, 6.2, 7, 7.8, 8.6, 9.4, 10.2, 11, 11.8, 12.6, 13.4, 13.9])
+			//for(var item of [12.1])
+				{
+				let a = Interpolation.Interpolation.int2d(fund1.listLayers[0].alfa_etta_ksi_m, fund1.listLayers[0].etta_m, fund1.listLayers[0].ksi_m, 1.5, item);
+				//console.log(a);
+				alfa_m.push(a);
+				//stream.write(Interpolation.Interpolation.int2d(fund1.listLayers[0].alfa_etta_ksi_m, fund1.listLayers[0].etta_m, fund1.listLayers[0].ksi_m, 1.5, item).toString());
+
+				};
+				//stream.end();
+			let val1 = mEqual(alfa_m, [0.8525, 0.5435, 0.3372, 0.2202, 0.1820, 0.1298, 0.0965, 0.0902, 0.0700, 0.0554, 0.0449, 0.0372, 0.0315, 0.0268, 0.0231, 0.0202, 0.0162, 0.0122, 0.0098]);
+			expect(true).toBe(val1);
+			fund1.σ_eval();
+			let σ_zpi_m = [], σ_zpi4_m = [], σ_z_gamma_i_m = [], σzg_m=[], u_m=[];
+			for (var item of fund1.listLayers){
+				σ_zpi_m.push(item.σ_zpi); σ_zpi4_m.push(item.σ_zpi4); σ_z_gamma_i_m.push(item.σ_zgi); σzg_m.push(item.σzg); u_m.push(item.u);
+
+			};
+			let val2 = mEqual([2.125, 1.355, 0.841, 0.549, 0.454, 0.324, 0.241, 0.225, 0.175, 0.138, 0.112, 0.093, 0.079, 0.067, 0.058, 0.050, 0.040, 0.030, 0.024], σ_zpi_m);
+			});
 
 		it("проверим метод hc_eval", ()=> {
 

@@ -54,7 +54,6 @@ class Ige {
     σ_zpi_method(p, b, etta) {
         let ksi = 2 * this.z2 / b;
         if (ksi > 12) {
-            ksi = 12;
             console.log(`warning, in z = ${this.z2}, ksi > 12 (${2 * this.z2 / b})`);
         }
         ;
