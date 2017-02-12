@@ -84,7 +84,7 @@ export class Ige {
 		if (ksi > 12) 
 			{ksi = 12; console.log(`warning, in z = ${this.z2}, ksi > 12 (${2*this.z2/b})`)};
 		let a = Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
-		console.log(`alfa = ${a}`);
+		//console.log(`alfa = ${a}`);
 		this.σ_zpi = a * p;
 		this.σ_zpi4 = this.σ_zpi / 4;
 		return this.σ_zpi;

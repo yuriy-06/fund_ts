@@ -59,7 +59,7 @@ class Ige {
         }
         ;
         let a = interpolation_1.Interpolation.int2d(this.alfa_etta_ksi_m, this.etta_m, this.ksi_m, etta, ksi);
-        console.log(`alfa = ${a}`);
+        //console.log(`alfa = ${a}`);
         this.σ_zpi = a * p;
         this.σ_zpi4 = this.σ_zpi / 4;
         return this.σ_zpi;

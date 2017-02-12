@@ -10,6 +10,14 @@ describe("здесь мы проверяем модуль Interpolation\n", () =
 		let index = Interpolation.Interpolation.index(m,p);
 		expect(index).toBe(2);
 	});
+
+	it("проверим выход за пределы масива индекса", () => {
+
+		let m = [0, 1, 2, 3, 4, 5], p = 5.1;
+		let index = Interpolation.Interpolation.index(m,p);
+		expect(index).toBe(5);
+
+	});
 	
 	it("Проверим метод int1d", () => {
 		let m = [2.1, 3, 2.6, 3.5], x = 2.25;
@@ -81,7 +89,9 @@ describe("здесь мы проверяем методы непосредств
 			expect(2.16).toBe(fund1.σ_zg0);
 			// распечатаем к-ты альфа
 			console.log(" распечатаем к-ты альфа ");
-			for(var item of [0.8, 1.6, 2.4, 3.2, 3.6, 4.4, 5.2, 5.4, 6.2, 7, 7.8, 8.6, 9.4, 10.2, 11, 11.8, 12.6, 13.4, 13.9])
+			debugger;
+			//for(var item of [0.8, 1.6, 2.4, 3.2, 3.6, 4.4, 5.2, 5.4, 6.2, 7, 7.8, 8.6, 9.4, 10.2, 11, 11.8, 12.0, 12.0, 12.1])
+			for(var item of [12.1])
 				{console.log(Interpolation.Interpolation.int2d(fund1.listLayers[0].alfa_etta_ksi_m, fund1.listLayers[0].etta_m, fund1.listLayers[0].ksi_m, 1.5, item));};
 		});
 

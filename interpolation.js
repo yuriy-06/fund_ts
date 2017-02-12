@@ -32,7 +32,20 @@ class Interpolation {
             console.log("in Interpolation.int2d main_m is indefined");
         }
         ;
-        let x1index = this.index(xm, x), x2index = x1index + 1, y1index = this.index(ym, y), y2index = y1index + 1;
+        let x1index = this.index(xm, x), x2index = x1index + 1; // здесь будет ошибка если выше индекс вышел за пределы
+        if (x2index > xm.length - 1) {
+            x2index = xm.length;
+            x1index = x2index - 1;
+        }
+        ; /*
+        т.к. индекс нумеруется с нуля, макс-ый индекс будет на 1 меньше длины массива
+        */
+        let y1index = this.index(ym, y), y2index = y1index + 1;
+        if (y2index > ym.length - 1) {
+            y2index = ym.length;
+            y1index = y2index - 1;
+        }
+        ;
         if (x1index == undefined || x2index == undefined || y1index == undefined || y2index == undefined) {
             console.log("in Interpolation.int2d x1index || x2index  ||	y1index  ||	y2index  is undefined");
         }
