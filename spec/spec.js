@@ -7,9 +7,11 @@ var stream = fs.createWriteStream("alfa.txt");*/
 
 function mEqual(m1, m2){
 	let len = m1.length;
-	if (len != m2.length){return false;};
+	if (len != m2.length){consile.log("in mEqual : m1.length != m2.length"); return false;};
 	for(var i =0; i < len; i++){
-		if (m1[i] - m2[i] > 0.001){return false;};
+		if (m1[i] - m2[i] > 0.001){
+			console.log(`in mEqual m1[i] = ${m1[i]} != m2[i] = ${m2[i]}`);
+			return false;};
 		};
 		return true;
 	};
@@ -115,9 +117,12 @@ describe("здесь мы проверяем методы непосредств
 			expect(true).toBe(alfa_val);
 			fund1.σ_eval();
 			let σ_zpi_m = [], σ_zpi4_m = [], ak_m=[], σ_z_gamma_i_m = [], σzg_m=[], u_m=[];
+			let alfa_etta_ksi_m = fund1.listLayers[0].alfa_etta_ksi_m,
+				etta_m = fund1.listLayers[0].etta_m,
+				ksi_m = fund1.listLayers[0].ksi_m;
 			for (var item of fund1.listLayers){
 				σ_zpi_m.push(item.σ_zpi); σ_zpi4_m.push(item.σ_zpi4); 
-				let ak =Interpolation.Interpolation.int2d(fund1.alfa_etta_ksi_m, fund1.etta_m, fund1.ksi_m, 1.3333, 2*item.z2/item.bk);
+				let ak =Interpolation.Interpolation.int2d(alfa_etta_ksi_m, etta_m, ksi_m, 1.3333, 2*item.z2/fund1.b_k);
 				ak_m.push(ak);
 				σ_z_gamma_i_m.push(item.σ_zgi); σzg_m.push(item.σzg); u_m.push(item.u);
 
@@ -126,11 +131,10 @@ describe("здесь мы проверяем методы непосредств
 			expect(true).toBe(σ_zpi_val);
 			let σ_zpi4_val = mEqual(σ_zpi4_m, [0.531, 0.339, 0.210, 0.137, 0.113, 0.081, 0.060, 0.056, 0.044, 0.035, 0.028, 0.023, 0.020, 0.017, 0.014, 0.013, 0.010, 0.008, 0.006]);
 			expect(true).toBe(σ_zpi4_val);
-			console.log("alfa_k = ");
-			console.log(ak_m);
-			let σ_z_gamma_i_val = mEqual(σ_z_gamma_i_m, [1.841, 1.174, 0.728, 0.476, 0.393, 0.280, 0.208, 0.195, 0.151, 0.120, 0.097, 0.080, 0.068, 0.058, 0.050, 0.044, 0.035, 0.026, 0.021]);
+			let ak_val = mEqual([0.9267, 0.7262, 0.5182, 0.3719, 0.3137, 0.2340, 0.1779, 0.1660, 0.1318, 0.1061, 0.0870, 0.0726, 0.0617, 0.0525, 0.0452, 0.0394, 0.0352, 0.0308, 0.0290], ak_m);
+			expect(true).toBe(ak_val);
+			let σ_z_gamma_i_val = mEqual(σ_z_gamma_i_m, [2.0017, 1.5686, 1.1193, 0.8033, 0.6776, 0.5054, 0.3843, 0.3586, 0.2847, 0.2292, 0.1879, 0.1568, 0.1333, 0.1134, 0.0976, 0.0851, 0.0760, 0.0665, 0.0626]);
 			expect(true).toBe(σ_z_gamma_i_val);
-			//console.log(σ_z_gamma_i_m);
 			});
 
 		it("проверим метод hc_eval", ()=> {
@@ -139,6 +143,10 @@ describe("здесь мы проверяем методы непосредств
 		});
 
 		it("проверим метод hc_7_method", ()=> {
+			fund1.hc_eval();
+			expect(fund1.hMin).toBe(1);// тест не покрывает b > 10м
+			console.log("тест не покрывает Нмин при ширине фундамента > 10 м - такие практически не встречаются - в технический долг");
+			expect(fund1.hc).toBe(1.6);
 
 			
 		});
