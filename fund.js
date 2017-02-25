@@ -84,7 +84,7 @@ class Ige {
         else 
         // текущее давление воды остается нулем, как и было
         {
-            this.σzg = prev_σzg + this.γ * this.h;
+            this.σzg = prev_σzg + this.γ * this.h + prevWaterPress;
             prevWaterPress = 0;
             this.u = prevWaterPress;
         }
@@ -126,7 +126,7 @@ class SqBase {
         this.l = Math.max(this.l1, this.l2);
         let a = this.l * this.b;
         this.p = this.forces.nMax / a + this.γ_ * this.h_land; // очень примерно вес считается
-        this.σ_zg0 = this.γ_ * this.h_land;
+        this.σ_zg0 = this.γ_ * this.h_land; // неточность может быть связана с тем что УГВ начинается от поверхности
         this.b_k = obj.b_k || this.b + 1;
         this.l_k = obj.l_k || this.l + 1;
         this.etta = this.l / this.b;

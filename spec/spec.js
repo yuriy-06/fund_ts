@@ -53,7 +53,7 @@ describe("здесь мы проверяем модуль Interpolation\n", () =
 describe("здесь мы проверяем методы непосредственно классов основной программы\n", () => {
 
 		let ige1 = new Outflanking.Ige({h:3.6, e:1800, waterHold:"yes", γ:1.7}),
-			ige2 = new Outflanking.Ige({h:1.8, e:900, waterHold:"no", γ:1.7}),
+			ige2 = new Outflanking.Ige({h:1.8, e:699, waterHold:"no", γ:1.7}),
 			ige3 = new Outflanking.Ige({h:8.5, e:1500, waterHold:"no", γ:1.7});
 		let listLayers1 = [ige1, ige2, ige3];
 		let fund1 = new Outflanking.SqBase ({name:"Fm1", l1: 3.0, l2: 2.0, h: 1.5, h_land: 1.2, γ_: 1.8, forces: {nMax: 2, nMin: 1.2, q1: 2, q2: 1.5, m1: 2, m2: 1.5}});
@@ -135,26 +135,28 @@ describe("здесь мы проверяем методы непосредств
 			expect(true).toBe(ak_val);
 			let σ_z_gamma_i_val = mEqual(σ_z_gamma_i_m, [2.0017, 1.5686, 1.1193, 0.8033, 0.6776, 0.5054, 0.3843, 0.3586, 0.2847, 0.2292, 0.1879, 0.1568, 0.1333, 0.1134, 0.0976, 0.0851, 0.0760, 0.0665, 0.0626]);
 			expect(true).toBe(σ_z_gamma_i_val);
-			console.log("напряжение от собств. веса");
-			console.log(σzg_m);
+			//console.log("напряжение от собств. веса");
+			//console.log(σzg_m);
+			let σzg_m_val = mEqual(σzg_m, [2.916, 3.671, 4.427, 5.182, 5.560, 10.520, 11.880, 12.220, 13.580, 14.940, 16.300, 17.660, 19.020, 20.380, 21.740, 23.100, 24.460, 25.820, 26.670]);
+			expect(true).toBe(σzg_m_val);
+
 			});
 
 		it("проверим метод hc_eval", ()=> {
-
-			
-		});
-
-		it("проверим метод hc_7_method", ()=> {
 			fund1.hc_eval();
 			expect(fund1.hMin).toBe(1);// тест не покрывает b > 10м
 			console.log("тест не покрывает Нмин при ширине фундамента > 10 м - такие практически не встречаются - в технический долг");
-			expect(fund1.hc).toBe(1.6);
+			expect(fund1.hc).toBe(1.6);			
+		});
 
-			
+		it("проверим метод hc_7_method", ()=> {
+			fund1.hc_7_method();
+			expect(5.4).toBe(fund1.hc_7);
 		});
 
 		it("проверим метод hc_eval_7", ()=> {
-
+			fund1.hc_eval_7();
+			expect(2.4).toBe(parseFloat(fund1.hc.toFixed(3)));
 			
 		});
 
