@@ -79,12 +79,14 @@ class Ige {
             this.u = prevWaterPress + this.h;
             let γw = 1;
             let γsb = (this.γ_s - γw) / (1 + this.e_por);
-            this.σzg = prev_σzg + γsb * this.h - this.u;
+            this.σzg = prev_σzg + γsb * this.h;
         }
         else 
         // текущее давление воды остается нулем, как и было
         {
             this.σzg = prev_σzg + this.γ * this.h;
+            prevWaterPress = 0;
+            this.u = prevWaterPress;
         }
         ;
         //ρw = 1 # плотность воды
