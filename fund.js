@@ -114,6 +114,7 @@ class SqBase {
         this.x = 0;
         this.y = 0;
         this.hc = false;
+        this.s1 = 0; // осадка для случая когда нет влияющих фундаментов
         this.l1 = obj.l1;
         this.l2 = obj.l2;
         this.h = obj.h;
@@ -242,10 +243,21 @@ class SqBase {
         ;
         return this.hc;
     }
-    osadka_eval(s_formula) {
+    osadka_eval() {
+        if (this.p > this.σ_zg0)
+            var s_formula = function (s_zpi, h, e, ei, s_zgi) {
+                let s = 0.8 * (s_zpi - s_zgi) * h / e + 0.8 * s_zgi * h / ei;
+                return s;
+            };
+        else
+            s_formula = function (s_zpi, h, e) {
+                let s = 0.8 * s_zpi * h / e;
+                return s;
+            };
         for (var item of this.listLayers) {
             if (item.z1 < this.hc) {
                 item.s = s_formula(item.σ_zpi, item.h, item.e, item.ei, item.σ_zgi);
+                this.s1 += item.s;
             }
             ;
         }
@@ -333,17 +345,7 @@ class SqBase {
         this.hc_eval();
         this.hc_7_method();
         this.hc_eval_7();
-        if (this.p > this.σ_zg0)
-            var s = function (s_zpi, h, e, ei, s_zgi) {
-                let s = 0.8 * (s_zpi - s_zgi) * h / e + 0.8 * s_zgi * h / ei;
-                return s;
-            };
-        else
-            s = function (s_zpi, h, e) {
-                let s = 0.8 * s_zpi * h / e;
-                return s;
-            };
-        this.osadka_eval(s); // посчитали осадку основного фундамента
+        this.osadka_eval(); // посчитали осадку основного фундамента
     }
 }
 exports.SqBase = SqBase;

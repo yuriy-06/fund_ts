@@ -7,7 +7,7 @@ var stream = fs.createWriteStream("alfa.txt");*/
 
 function mEqual(m1, m2){
 	let len = m1.length;
-	if (len != m2.length){consile.log("in mEqual : m1.length != m2.length"); return false;};
+	if (len != m2.length){console.log("in mEqual : m1.length != m2.length"); return false;};
 	for(var i =0; i < len; i++){
 		if (m1[i] - m2[i] > 0.001){
 			console.log(`in mEqual m1[i] = ${m1[i]} != m2[i] = ${m2[i]}`);
@@ -15,6 +15,16 @@ function mEqual(m1, m2){
 		};
 		return true;
 	};
+function mEqual6(m1, m2){
+	let len = m1.length;
+	if (len != m2.length){console.log("in mEqual : m1.length != m2.length"); return false;};
+	for(var i =0; i < len; i++){
+		if (m1[i] - m2[i] > 0.000001){
+			console.log(`in mEqual m1[i] = ${m1[i]} != m2[i] = ${m2[i]}`);
+			return false;};
+		};
+		return true;
+	};	
 
 describe("здесь мы проверяем модуль Interpolation\n", () => {
 
@@ -161,8 +171,16 @@ describe("здесь мы проверяем методы непосредств
 		});
 
 		it("проверим метод osadka_eval", ()=> {
-
-			
+			fund1.osadka_eval();
+			let s_m = [];
+			for (var item of fund1.listLayers){
+				s_m.push(item.s);
+				
+				
+			};
+			let val_s = mEqual6(s_m, [0.0001863, 0.0000356, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]);
+			expect(true).toBe(val_s);
+			expect(0.000222).toBe(fund1.s1);
 		});
 		
 		it("проверим метод osadka_add", ()=> {

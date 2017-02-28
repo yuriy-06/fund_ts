@@ -178,6 +178,7 @@ export class SqBase {
 	sign: string; // знак напряжений от влияемого фундамента
 	fund_affecting: SqBase; // поле для влияющего фундамента
 	level: number; // отметка подошвы фундамента
+	s1:number = 0; // осадка для случая когда нет влияющих фундаментов
 	plist: {p1:Point, p2:Point, p3:Point, p4:Point};// условные оординаты влияющего фундамента
 	constructor(obj: HasSqBase){
 		this.l1 = obj.l1; this.l2 = obj.l2; this.h = obj.h; this.h_land = obj.h_land;this.name = obj.name;
@@ -265,9 +266,23 @@ export class SqBase {
 		};
 		return this.hc;
 	}
-	osadka_eval(s_formula:Function){ // Здесь проверить тип на домашнем ПК // и что такое obj.call()
+	osadka_eval(){ // Здесь проверить тип на домашнем ПК // и что такое obj.call()
+		if (this.p > this.σ_zg0) 
+			var s_formula = function(s_zpi:number, h:number, e:number, ei:number, s_zgi:number){ 
+				let s = 0.8*(s_zpi - s_zgi)*h/e + 0.8*s_zgi*h/ei;
+				return s;
+			};
+		else
+			s_formula = function(s_zpi:number, h:number, e:number){ // по идее, лишнии аргументы в методе , вызывающем формулу, должны сами в формуле отбрасываться
+				let s = 0.8 * s_zpi * h / e ;
+				return s;
+			};
 		for (var item of this.listLayers){
-		if (item.z1 < this.hc) 	{item.s = s_formula(item.σ_zpi, item.h, item.e, item.ei, item.σ_zgi)};
+			if (item.z1 < this.hc) 	
+			{
+				item.s = s_formula(item.σ_zpi, item.h, item.e, item.ei, item.σ_zgi);
+				this.s1 += item.s;
+			};
 		};
 	}
 	osadka_add(obj_base_add: SqBase){ // в этом месте будет считаться добавочная осадка от влияющего фундамента
@@ -334,17 +349,7 @@ export class SqBase {
 		this.hc_eval();
 		this.hc_7_method();
 		this.hc_eval_7();
-		if (this.p > this.σ_zg0) 
-			var s = function(s_zpi:number, h:number, e:number, ei:number, s_zgi:number){ 
-				let s = 0.8*(s_zpi - s_zgi)*h/e + 0.8*s_zgi*h/ei;
-				return s;
-			};
-		else
-			s = function(s_zpi:number, h:number, e:number){
-				let s = 0.8 * s_zpi * h / e ;
-				return s;
-			};
-		this.osadka_eval(s); // посчитали осадку основного фундамента
+		this.osadka_eval(); // посчитали осадку основного фундамента
 		
 	}
 }
