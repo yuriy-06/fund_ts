@@ -255,7 +255,7 @@ class SqBase {
                 return s;
             };
         for (var item of this.listLayers) {
-            if (item.z1 < this.hc) {
+            if (item.z2 < this.hc) {
                 item.s = s_formula(item.σ_zpi, item.h, item.e, item.ei, item.σ_zgi);
                 this.s1 += item.s;
             }
